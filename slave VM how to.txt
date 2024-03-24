@@ -9,7 +9,7 @@ ls
 ssh user_28@192.168.1.48
 ssh user_28@192.168.1.236
 
-removes: rm -r ece-420-lab4
+removes: ****(Make sure you are in the slave vm terminal, otherwise this will remove the host vm's data and destroy an unsaved work!!! rm -r ece-420-lab4
 
 
 hosts: (first is master???)
