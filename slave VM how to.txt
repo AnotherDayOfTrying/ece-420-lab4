@@ -1,0 +1,25 @@
+copy files from master (200) to remote:
+scp -r ~/ece-420-lab4 user_28@192.168.1.10:~/ece-420-lab4
+scp -r ~/ece-420-lab4 user_28@192.168.1.48:~/ece-420-lab4
+scp -r ~/ece-420-lab4 user_28@192.168.1.236:~/ece-420-lab4
+
+check existence:
+ssh user_28@192.168.1.10
+ls
+ssh user_28@192.168.1.48
+ssh user_28@192.168.1.236
+
+removes: rm -r ece-420-lab4
+
+
+hosts: (first is master???)
+192.168.1.200 (master???)
+192.168.1.10
+192.168.1.48
+192.168.1.236
+
+i think first is master:
+"
+[user_28@cluster-39 ~]$ ssh user_28@192.168.1.10
+Last login: Sun Mar 24 10:10:53 2024 from 192.168.1.200
+"
