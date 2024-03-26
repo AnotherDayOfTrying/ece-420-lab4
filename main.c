@@ -73,11 +73,16 @@ int main (int argc, char* argv[]){
     int p_start = disp[rank];
     int p_end = p_start + recvcounts[rank];
 
+    printf("%d: Start: %d | End: %d \n", rank, p_start, p_end);
+
     // core calculation
     do{
         ++iterationcount;
         /* IMPLEMENT ITERATIVE UPDATE */
         vec_cp(r, r_pre, nodecount);
+
+        // MPI_Bcast(r_pre, nodecount, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
         for (i = p_start; i < p_end; i++) {
             struct node i_node = nodehead[i];
             double summation = 0;
@@ -87,8 +92,10 @@ int main (int argc, char* argv[]){
             }
             r[i] = ((1 - DAMPING_FACTOR)/nodecount) + DAMPING_FACTOR * summation;
         }
-
         MPI_Allgatherv(r + p_start, p_end - p_start, MPI_DOUBLE, global_r, recvcounts, disp, MPI_DOUBLE, MPI_COMM_WORLD);
+        for (int test = 0; test < nodecount; test++) {
+            r[test] = global_r[test];
+        }
         
     }while(rel_error(r, r_pre, nodecount) >= EPSILON);
     MPI_Finalize();
