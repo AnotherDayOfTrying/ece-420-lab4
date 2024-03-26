@@ -78,6 +78,9 @@ int main (int argc, char* argv[]){
         ++iterationcount;
         /* IMPLEMENT ITERATIVE UPDATE */
         vec_cp(r, r_pre, nodecount);
+
+        // MPI_Bcast(r_pre, nodecount, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
         for (i = p_start; i < p_end; i++) {
             struct node i_node = nodehead[i];
             double summation = 0;
@@ -87,8 +90,10 @@ int main (int argc, char* argv[]){
             }
             r[i] = ((1 - DAMPING_FACTOR)/nodecount) + DAMPING_FACTOR * summation;
         }
-
         MPI_Allgatherv(r + p_start, p_end - p_start, MPI_DOUBLE, global_r, recvcounts, disp, MPI_DOUBLE, MPI_COMM_WORLD);
+        for (int test = 0; test < nodecount; test++) { // update local_r with global_r
+            r[test] = global_r[test];
+        }
         
     }while(rel_error(r, r_pre, nodecount) >= EPSILON);
     MPI_Finalize();
