@@ -20,7 +20,7 @@ allFiles = 	Makefile main.c Lab4_IO.c Lab4_IO.h timer.h
 
 
 main: main.c Lab4_IO.c Lab4_IO.h timer.h
-	gcc -g -Wall -o main main.c Lab4_IO.c -lm -std=c99
+	mpicc -g -Wall -o main main.c Lab4_IO.c -lm -std=c99
 
 datatrim: datatrim.c Lab4_IO.c Lab4_IO.h timer.h
 	gcc -g -Wall -o datatrim datatrim.c Lab4_IO.c -lm
